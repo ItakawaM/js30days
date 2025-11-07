@@ -1,0 +1,59 @@
+html {
+  background-image: url("/Drums/Assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 10px;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.key-holder {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  align-content: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.key {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 0.4rem, solid black;
+  border-radius: 0.5rem, solid black;
+  margin: 1rem;
+  padding: 1rem, 0.5rem;
+  width: 10rem;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  text-shadow: 0, 0, 0.5rem, black;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.key:hover {
+  cursor: pointer;
+}
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0, 0, 1rem, #ffc600;
+}
+
+.key-sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #ffc600;
+  font-weight: bold;
+}
+
+kbd {
+  display: block;
+  font-size: 4rem;
+  font-family: "Courier New", monospace;
+}
