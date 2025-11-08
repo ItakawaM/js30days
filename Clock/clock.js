@@ -1,15 +1,24 @@
 const secondHand = document.querySelector(".second-hand");
 const minuteHand = document.querySelector(".minute-hand");
 const hourHand = document.querySelector(".hour-hand");
-/* TODO: Change time of the Time span and the Page itself */
+
+const timeSpan = document.querySelector(".time");
+
 /* TODO: Make clock ticks with JS */
 
-function setTime(secondHand, minuteHand, hourHand) {
+function setTime(secondHand, minuteHand, hourHand, timeSpan) {
   const now = new Date();
 
   const seconds = now.getSeconds();
   const minutes = now.getMinutes();
   const hours = now.getHours();
+
+  const formatTime = `${String(hours).padStart(2, "0")}:${String(
+    minutes
+  ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+  document.title = formatTime;
+  timeSpan.textContent = formatTime;
 
   if (seconds === 0) {
     secondHand.style.transition = "none";
@@ -27,4 +36,4 @@ function setTime(secondHand, minuteHand, hourHand) {
   hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
 }
 
-setInterval(setTime, 1000, secondHand, minuteHand, hourHand);
+setInterval(setTime, 1000, secondHand, minuteHand, hourHand, timeSpan);
