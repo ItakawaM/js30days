@@ -1,0 +1,105 @@
+.roboto-font {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+body {
+  background-image: url("/Clock/Assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.blur-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1);
+  transition: all 0.7s ease-in-out;
+}
+.blur-container:hover {
+  transform: scale(1.1);
+}
+
+.text {
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 0.1rem rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+  font-size: 3rem;
+}
+.time {
+  font-size: 1rem;
+  text-shadow: 0 0 0.1rem #8fabd4;
+  letter-spacing: 0.1rem;
+}
+
+.clock {
+  height: 20rem;
+  width: 20rem;
+  border: 1rem white solid;
+  border-radius: 100%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding: 0.5rem;
+}
+.clock-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-3px);
+}
+.clock-face-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+  background: #efece3;
+  transform: translate(-50%, -50%);
+}
+
+/*TODO: Position the hands correctly as they are now off-center*/
+.hand {
+  top: 50%;
+  background: linear-gradient(to right, #8fabd4, #efece3);
+  position: absolute;
+  transform-origin: right center;
+  border-start-start-radius: 1rem;
+  border-end-start-radius: 1rem;
+  transition: all 0.05s cubic-bezier(0.1, 3, 0.5, 1);
+  transform: rotate(90deg);
+}
+.second-hand {
+  height: 2px;
+  width: 50%;
+  background: #8fabd4;
+}
+.minute-hand {
+  height: 6px;
+  width: 50%;
+}
+.hour-hand {
+  height: 6px;
+  width: 40%;
+  left: 10%;
+}
