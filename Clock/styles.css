@@ -39,7 +39,7 @@ body {
 }
 
 .text {
-  color: white;
+  color: #efece3;
   text-align: center;
   text-shadow: 0 0 0.1rem rgba(255, 255, 255, 0.9);
   font-weight: bold;
@@ -52,54 +52,74 @@ body {
 }
 
 .clock {
-  height: 20rem;
-  width: 20rem;
-  border: 1rem white solid;
+  height: calc(20rem + 1px);
+  width: calc(20rem + 1px);
+  border: 1rem #efece3 solid;
   border-radius: 100%;
   margin-top: 2rem;
   margin-bottom: 1rem;
   position: relative;
-  padding: 0.5rem;
+  padding: 2.5rem;
+}
+.clock-number {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  font-weight: bold;
+  color: #efece3;
 }
 .clock-face {
   position: relative;
   width: 100%;
   height: 100%;
-  transform: translateY(-3px);
 }
 .clock-face-center {
   position: absolute;
+  transform-origin: center center;
   top: 50%;
   left: 50%;
   border-radius: 100%;
-  width: 10px;
-  height: 10px;
   background: #efece3;
+  width: 7px;
+  height: 7px;
   transform: translate(-50%, -50%);
 }
 
-/*TODO: Position the hands correctly as they are now off-center*/
 .hand {
   top: 50%;
-  background: linear-gradient(to right, #8fabd4, #efece3);
   position: absolute;
-  transform-origin: right center;
+  transform-origin: center right;
   border-start-start-radius: 1rem;
   border-end-start-radius: 1rem;
   transition: all 0.05s cubic-bezier(0.1, 3, 0.5, 1);
   transform: rotate(90deg);
+  background: linear-gradient(to right, #8fabd4, #efece3);
 }
-.second-hand {
-  height: 2px;
+.hand-seconds {
   width: 50%;
-  background: #8fabd4;
+  height: 3px;
 }
-.minute-hand {
-  height: 6px;
+.hand-minutes {
   width: 50%;
-}
-.hour-hand {
   height: 6px;
+}
+.hand-hours {
   width: 40%;
   left: 10%;
+  height: 6px;
+}
+
+.tick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: rgba(239, 236, 227, 0.6);
+  transform-origin: center center;
+}
+.tick-hour {
+  width: 4px;
+  height: 16px;
+  background: #efece3;
 }
