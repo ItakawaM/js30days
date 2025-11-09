@@ -3,6 +3,7 @@
   --base: #7289da;
   --spacing: 10px;
   --blur: 10px;
+  --transition-time: 0.7s;
 }
 
 .roboto-font {
@@ -38,6 +39,7 @@ body::-webkit-scrollbar {
 .highlight {
   color: var(--base);
   text-shadow: 0 0 3px var(--base);
+  transition: all var(--transition-time);
 }
 
 .controls {
@@ -78,7 +80,7 @@ input[type="color"] {
   background: white;
   outline: none;
   opacity: 0.7;
-  transition: all 0.7s;
+  transition: all var(--transition-time);
 }
 .control-element input[type="range"]:hover {
   opacity: 0.9;
@@ -91,7 +93,7 @@ input[type="color"] {
   background: var(--base);
   cursor: pointer;
   border-radius: 100%;
-  transition: all 0.7s;
+  transition: all var(--transition-time);
   opacity: 1;
 }
 .control-element input[type="range"]::-webkit-slider-thumb:hover {
@@ -109,7 +111,7 @@ input[type="color"] {
 .control-element input[type="color"]::-webkit-color-swatch {
   border-radius: 100%;
   border: 3px solid white;
-  transition: all 0.7s;
+  transition: all var(--transition-time);
 }
 .control-element input[type="color"]::-webkit-color-swatch:hover {
   transform: scale(1.1);
@@ -121,4 +123,5 @@ input[type="color"] {
   filter: blur(var(--blur));
   background-color: var(--base);
   border-radius: 1rem;
+  transition: background-color var(--transition-time);
 }
