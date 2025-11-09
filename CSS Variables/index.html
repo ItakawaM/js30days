@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Variables</title>
+
+    <link
+      rel="shortcut icon"
+      href="/CSS Variables/Assets/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/CSS Variables/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h2 class="roboto-font header">
+      Update CSS Variables with <span class="highlight">JS</span>!
+    </h2>
+    <div class="controls">
+      <div class="control-element">
+        <label for="spacing" class="roboto-font">Spacing</label>
+        <input
+          type="range"
+          name="spacing"
+          id="spacing"
+          min="10"
+          max="200"
+          value="10"
+          data-sizing="px"
+        />
+      </div>
+
+      <div class="control-element">
+        <label for="blur" class="roboto-font">Blur</label>
+        <input
+          type="range"
+          name="blur"
+          id="blur"
+          min="0"
+          max="25"
+          value="10"
+          data-sizing="px"
+        />
+      </div>
+
+      <div class="control-element">
+        <label for="base" class="roboto-font">Color</label>
+        <input type="color" name="base" id="base" value="#7289da" />
+      </div>
+    </div>
+
+    <img
+      src="/CSS Variables/Assets/image.jpg"
+      alt="Some fancy image!"
+      class="test-subject"
+    />
+
+    <script src="/CSS Variables/variables.js"></script>
+  </body>
+</html>
