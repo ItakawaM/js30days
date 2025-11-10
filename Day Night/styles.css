@@ -1,0 +1,65 @@
+:root {
+  --current-bg: #fde1cc;
+  --current-text-color: #d85e5e;
+  --transition-time: 0.3s;
+  --transition-timing: cubic-bezier(0.68, 0.18, 0.23, 1.49);
+}
+
+@keyframes dongleSway {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  background: var(--current-bg);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--current-text-color);
+  transition: all var(--transition-time) var(--transition-timing);
+  user-select: none;
+}
+
+.text {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 4rem;
+  margin-left: 4rem;
+  overflow-wrap: break-word;
+  width: 50%;
+  opacity: 1;
+}
+
+.dongle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -20px;
+  transition: all var(--transition-time) var(--transition-timing);
+  transform-origin: top center;
+  animation: dongleSway 3s ease-in-out infinite alternate;
+}
+.dongle-string {
+  height: 10rem;
+  width: 0.3rem;
+  border-radius: 1rem;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+  background: var(--current-text-color);
+  transition: all var(--transition-time) var(--transition-timing);
+}
+.dongle-dong {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  background: var(--current-text-color);
+  margin-top: -10px;
+  cursor: pointer;
+  transition: all var(--transition-time) var(--transition-timing);
+}
