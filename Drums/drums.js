@@ -6,8 +6,6 @@ function playSoundKeyboard(event) {
   key.classList.toggle("playing");
   audio.currentTime = 0;
   audio.play();
-
-  ```  setTimeout(() => key.classList.remove("playing"), 300);```;
 }
 
 function playSoundMouse(element) {
@@ -19,8 +17,6 @@ function playSoundMouse(element) {
   element.classList.toggle("playing");
   audio.currentTime = 0;
   audio.play();
-
-  ```  setTimeout(() => element.classList.remove("playing"), 300);```;
 }
 
 function removeTransition(event) {
