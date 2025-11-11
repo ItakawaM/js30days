@@ -1,63 +1,108 @@
-const dongle = document.querySelector(".dongle-dong");
+// Light Switch Logic
+const lightSwitch = document.querySelector(".light-switch");
+const lightSwitchDongle = document.querySelector(".light-switch-dongle");
+const lightSwitchString = document.querySelector(".light-switch-string");
 
-const favicon = document.querySelector("link[rel~='icon']");
+const pullSFX = document.querySelector("#light-switch-pull-sfx");
 
+let isDragging = false;
+let startY = 0;
+const pullThreshold = 300;
+
+const root = document.documentElement;
+
+// Day and Night Logic
+const [dayBackground, nightBackground] = ["#fde1cc", "#272652"];
+const [dayTextColor, nightTextColor] = ["#d85e5e", "#d7fff7"];
+const [dayFavicon, nightFavicon] = ["./Assets/day.ico", "./Assets/night.ico"];
+const cycleTexts = {
+  day: [
+    "The Sun is about 100 times wider than Earth and about 10 times wider than Jupiter, the biggest planet.",
+    "The Sun is the only star in our solar system. It is the center of our solar system, and its gravity holds the solar system together. Everything in our solar system revolves around it – the planets, asteroids, comets, and tiny bits of space debris.",
+    "The Sun doesn’t have moons, but it’s orbited by eight planets, at least five dwarf planets, tens of thousands of asteroids, and perhaps three trillion comets and icy bodies.",
+    "Nothing could live on the Sun, but its energy is vital for most life on Earth.",
+  ],
+
+  night: [
+    "If you set a single green pea next to a U.S. nickel, you'd have a pretty good idea of the size of the Moon compared to Earth.",
+    "The Earth and Moon are tidally locked. Their rotations are so in sync we only see one side of the Moon. Humans didn't see the lunar far side until a Soviet spacecraft flew past in 1959.",
+    "The Moon has no moons.",
+    "More than 105 robotic spacecraft have been launched to explore the Moon. It is the only celestial body beyond Earth – so far – visited by human beings.",
+  ],
+};
+
+const favicon = document.querySelector("link[rel='icon']");
+const highlightText = document.querySelector("#highlight");
 const text = document.querySelector(".text");
-const highlight = document.querySelector(".highlight");
-const funFact = document.querySelector(".fun-fact");
-
-const dayBackground = "#fde1cc";
-const nightBackground = "#272652";
-
-const dayTextColor = "#d85e5e";
-const nightTextColor = "#d7fff7";
-
-const dayFavicon = "./Assets/day.ico";
-const nightFavicon = "./Assets/night.ico";
-
-const donglePullSfx = document.querySelector("#dongle-pull-sfx");
-
-const dayText =
-  "Our Sun is a 4.5 billion-year-old yellow dwarf star - a hot glowing ball of hydrogen and helium - at the center of our solar system. It's about 93 million miles (150 million kilometers) from Earth and it's our solar system's only star. Without the Sun's energy, life as we know it could not exist on our home planet.";
-const nightText =
-  "Earth's Moon records evidence of our solar system's history in the form of impact craters, cooled lava landforms, ancient ice deposits, and more.";
 
 let currentCycle = "Day";
 
 function dayNightCycle() {
-  donglePullSfx.currentTime = 0;
-  donglePullSfx.play();
   if (currentCycle === "Day") {
-    document.title = "Night";
-    document.documentElement.style.setProperty(
-      `--current-bg`,
-      `${nightBackground}`
-    );
-    document.documentElement.style.setProperty(
-      `--current-text-color`,
-      `${nightTextColor}`
-    );
-    highlight.textContent = "Night";
-    favicon.href = nightFavicon;
-    funFact.textContent = nightText;
-
     currentCycle = "Night";
-  } else {
-    document.title = "Day";
-    document.documentElement.style.setProperty(
-      `--current-bg`,
-      `${dayBackground}`
-    );
-    document.documentElement.style.setProperty(
-      `--current-text-color`,
-      `${dayTextColor}`
-    );
-    highlight.textContent = "Day";
-    favicon.href = dayFavicon;
-    funFact.textContent = dayText;
 
+    root.style.setProperty(`--bg-color`, `${nightBackground}`);
+    root.style.setProperty(`--text-color`, `${nightTextColor}`);
+
+    document.title = "Night";
+    favicon.href = nightFavicon;
+
+    highlightText.textContent = "Night";
+    text.textContent =
+      cycleTexts.night[Math.floor(Math.random() * cycleTexts.night.length)];
+  } else {
     currentCycle = "Day";
+
+    root.style.setProperty(`--bg-color`, `${dayBackground}`);
+    root.style.setProperty(`--text-color`, `${dayTextColor}`);
+
+    document.title = "Day";
+    favicon.href = dayFavicon;
+
+    highlightText.textContent = "Day";
+    text.textContent =
+      cycleTexts.day[Math.floor(Math.random() * cycleTexts.day.length)];
   }
 }
 
-dongle.addEventListener("click", dayNightCycle);
+function startDrag(event) {
+  isDragging = true;
+  startY = event.clientY;
+
+  // lightSwitch.style.animation = `none`;
+
+  root.style.setProperty(`--active-cursor`, `grabbing`);
+}
+
+function drag(event) {
+  if (!isDragging) return;
+
+  const deltaY = event.clientY - startY;
+  if (deltaY > 0) {
+    root.style.setProperty(`--light-switch-len`, `calc(9rem + ${deltaY}px)`);
+  }
+}
+
+function endDrag(event) {
+  if (!isDragging) return;
+
+  isDragging = false;
+  root.style.setProperty(`--active-cursor`, `default`);
+
+  const deltaY = event.clientY - startY;
+  if (deltaY > pullThreshold) {
+    pullSFX.currentTime = 0;
+    pullSFX.play();
+
+    dayNightCycle();
+  }
+
+  root.style.setProperty(`--light-switch-len`, `9rem`);
+  // lightSwitch.style.animation = `light-switch-sway 2.2s ease-in-out infinite alternate`;
+}
+
+lightSwitchDongle.addEventListener("mousedown", startDrag);
+window.addEventListener("mousemove", drag);
+window.addEventListener("mouseup", endDrag);
+
+// TODO: Add settings menu?

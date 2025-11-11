@@ -1,11 +1,13 @@
 :root {
-  --current-bg: #fde1cc;
-  --current-text-color: #d85e5e;
-  --transition-time: 0.3s;
-  --transition-timing: cubic-bezier(0.68, 0.18, 0.23, 1.49);
+  --bg-color: #fde1cc;
+  --text-color: #d85e5e;
+  --transition-time: 0.7s;
+  --transition-timing: cubic-bezier(0, 1, 0, 1.3);
+  --light-switch-len: 9rem;
+  --active-cursor: default;
 }
 
-@keyframes dongleSway {
+@keyframes light-switch-sway {
   from {
     transform: rotate(-3deg);
   }
@@ -15,51 +17,82 @@
 }
 
 html {
-  overflow: hidden;
+  cursor: var(--active-cursor);
 }
 
+html,
 body {
-  background: var(--current-bg);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--current-text-color);
-  transition: all var(--transition-time) var(--transition-timing);
+  overflow: hidden;
+  background: var(--bg-color);
+  color: var(--text-color);
   user-select: none;
+  transition: background var(--transition-time) var(--transition-timing);
+  transition: color var(--transition-time) var(--transition-timing);
+  margin: 0;
+  padding: 0;
 }
 
-.text {
+.text-section {
   position: fixed;
   bottom: 0;
   margin-bottom: 4rem;
   margin-left: 4rem;
-  overflow-wrap: break-word;
+  margin-right: 4rem;
   width: 50%;
-  opacity: 1;
+}
+.heading {
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+#highlight {
+  text-shadow: 0 0 2px var(--text-color);
+  filter: brightness(110%);
+}
+#fun-fact {
+  font-weight: 100;
+  font-size: 0.8rem;
+}
+.text {
+  overflow-wrap: break-word;
+  width: 100%;
+  font-size: 1rem;
 }
 
-.dongle {
+#light {
+  margin: auto;
+  margin-top: -110px;
+  width: 75%;
+  height: 100px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 4rem 0.1rem var(--text-color);
+}
+
+.light-switch {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -20px;
-  transition: all var(--transition-time) var(--transition-timing);
+  justify-content: center;
   transform-origin: top center;
-  animation: dongleSway 3s ease-in-out infinite alternate;
+  animation: light-switch-sway 2.2s ease-in-out infinite alternate;
 }
-.dongle-string {
-  height: 10rem;
-  width: 0.3rem;
-  border-radius: 1rem;
-  border-bottom-left-radius: 0%;
-  border-bottom-right-radius: 0%;
-  background: var(--current-text-color);
+.light-switch-string {
+  background: var(--text-color);
+  height: var(--light-switch-len);
+  width: 0.4rem;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   transition: all var(--transition-time) var(--transition-timing);
 }
-.dongle-dong {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 100%;
-  background: var(--current-text-color);
-  margin-top: -10px;
-  cursor: pointer;
-  transition: all var(--transition-time) var(--transition-timing);
+.light-switch-dongle {
+  background: var(--text-color);
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 0.5rem;
+  margin-top: -1rem;
+}
+.light-switch-dongle:hover {
+  --active-cursor: grab;
+  cursor: var(--active-cursor);
 }

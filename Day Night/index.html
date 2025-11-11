@@ -9,24 +9,25 @@
     <link rel="stylesheet" href="/Day Night/styles.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="dongle">
-        <div class="dongle-string"></div>
-        <div class="dongle-dong"></div>
-      </div>
-      <div class="text">
-        <h1 class="heading">It is <span class="highlight">Day</span></h1>
-        <span class="fun-fact"
-          >Our Sun is a 4.5 billion-year-old yellow dwarf star - a hot glowing
-          ball of hydrogen and helium - at the center of our solar system. It's
-          about 93 million miles (150 million kilometers) from Earth and it's
-          our solar system's only star. Without the Sun's energy, life as we
-          know it could not exist on our home planet.</span
-        >
-      </div>
+    <div id="light"></div>
+
+    <div class="light-switch">
+      <div class="light-switch-string"></div>
+      <div class="light-switch-dongle"></div>
     </div>
 
-    <audio src="/Day Night/Assets/dongle-pull.mp3" id="dongle-pull-sfx"></audio>
+    <div class="text-section">
+      <h1 class="heading">
+        It is <span id="highlight">just a light switch...</span>
+      </h1>
+      <span id="fun-fact">Fun Fact <br /> </span>
+      <span class="text">Pull to see what happens!</span>
+    </div>
+
+    <audio
+      src="/Day Night/Assets/light-switch-pull.mp3"
+      id="light-switch-pull-sfx"
+    ></audio>
     <script src="/Day Night/dayNight.js"></script>
   </body>
 </html>
