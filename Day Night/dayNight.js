@@ -7,7 +7,7 @@ const pullSFX = document.querySelector("#light-switch-pull-sfx");
 
 let isDragging = false;
 let startY = 0;
-const pullThreshold = 300;
+const pullThreshold = 250;
 
 const root = document.documentElement;
 
@@ -15,21 +15,6 @@ const root = document.documentElement;
 const [dayBackground, nightBackground] = ["#fde1cc", "#272652"];
 const [dayTextColor, nightTextColor] = ["#d85e5e", "#d7fff7"];
 const [dayFavicon, nightFavicon] = ["./Assets/day.ico", "./Assets/night.ico"];
-const cycleTexts = {
-  day: [
-    "The Sun is about 100 times wider than Earth and about 10 times wider than Jupiter, the biggest planet.",
-    "The Sun is the only star in our solar system. It is the center of our solar system, and its gravity holds the solar system together. Everything in our solar system revolves around it – the planets, asteroids, comets, and tiny bits of space debris.",
-    "The Sun doesn’t have moons, but it’s orbited by eight planets, at least five dwarf planets, tens of thousands of asteroids, and perhaps three trillion comets and icy bodies.",
-    "Nothing could live on the Sun, but its energy is vital for most life on Earth.",
-  ],
-
-  night: [
-    "If you set a single green pea next to a U.S. nickel, you'd have a pretty good idea of the size of the Moon compared to Earth.",
-    "The Earth and Moon are tidally locked. Their rotations are so in sync we only see one side of the Moon. Humans didn't see the lunar far side until a Soviet spacecraft flew past in 1959.",
-    "The Moon has no moons.",
-    "More than 105 robotic spacecraft have been launched to explore the Moon. It is the only celestial body beyond Earth – so far – visited by human beings.",
-  ],
-};
 
 const favicon = document.querySelector("link[rel='icon']");
 const highlightText = document.querySelector("#highlight");
@@ -37,7 +22,25 @@ const text = document.querySelector(".text");
 
 let currentCycle = "Day";
 
-function dayNightCycle() {
+const apiURL = new URL("https://uselessfacts.jsph.pl/api/v2/facts/random");
+async function getFunFact(params) {
+  apiURL.search = new URLSearchParams(params).toString();
+
+  try {
+    const response = await fetch(apiURL);
+    if (!response.ok) {
+      throw new Error(`Fetch error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data.text.toString() || `Nothing fun today!`;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+}
+
+async function dayNightCycle() {
   if (currentCycle === "Day") {
     currentCycle = "Night";
 
@@ -48,8 +51,6 @@ function dayNightCycle() {
     favicon.href = nightFavicon;
 
     highlightText.textContent = "Night";
-    text.textContent =
-      cycleTexts.night[Math.floor(Math.random() * cycleTexts.night.length)];
   } else {
     currentCycle = "Day";
 
@@ -60,21 +61,20 @@ function dayNightCycle() {
     favicon.href = dayFavicon;
 
     highlightText.textContent = "Day";
-    text.textContent =
-      cycleTexts.day[Math.floor(Math.random() * cycleTexts.day.length)];
   }
+
+  text.textContent = await getFunFact({ language: "en" });
 }
 
-function startDrag(event) {
+// Mouse
+function startDragMouse(event) {
   isDragging = true;
   startY = event.clientY;
-
-  // lightSwitch.style.animation = `none`;
 
   root.style.setProperty(`--active-cursor`, `grabbing`);
 }
 
-function drag(event) {
+function dragMouse(event) {
   if (!isDragging) return;
 
   const deltaY = event.clientY - startY;
@@ -83,7 +83,7 @@ function drag(event) {
   }
 }
 
-function endDrag(event) {
+function endDragMouse(event) {
   if (!isDragging) return;
 
   isDragging = false;
@@ -98,11 +98,48 @@ function endDrag(event) {
   }
 
   root.style.setProperty(`--light-switch-len`, `9rem`);
-  // lightSwitch.style.animation = `light-switch-sway 2.2s ease-in-out infinite alternate`;
 }
 
-lightSwitchDongle.addEventListener("mousedown", startDrag);
-window.addEventListener("mousemove", drag);
-window.addEventListener("mouseup", endDrag);
+// Touch
+function startDragTouch(event) {
+  event.preventDefault();
 
-// TODO: Add settings menu?
+  isDragging = true;
+  startY = event.touches[0].clientY;
+}
+
+function dragTouch(event) {
+  if (!isDragging) return;
+
+  const deltaY = event.touches[0].clientY - startY;
+  if (deltaY > 0) {
+    root.style.setProperty(`--light-switch-len`, `calc(9rem + ${deltaY}px)`);
+  }
+}
+
+function endDragTouch(event) {
+  if (!isDragging) return;
+
+  isDragging = false;
+
+  const deltaY = event.changedTouches[0].clientY - startY;
+  if (deltaY > pullThreshold) {
+    pullSFX.currentTime = 0;
+    pullSFX.play();
+
+    dayNightCycle();
+  }
+
+  root.style.setProperty(`--light-switch-len`, `9rem`);
+}
+
+// Events
+lightSwitchDongle.addEventListener("mousedown", startDragMouse);
+window.addEventListener("mousemove", dragMouse);
+window.addEventListener("mouseup", endDragMouse);
+
+lightSwitchDongle.addEventListener("touchstart", startDragTouch, {
+  passive: false,
+});
+window.addEventListener("touchmove", dragTouch, { passive: false });
+window.addEventListener("touchend", endDragTouch);

@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #fde1cc;
+  --bg-color: #fde1cc; /*TODO: think about Day colors*/
   --text-color: #d85e5e;
   --transition-time: 0.7s;
   --transition-timing: cubic-bezier(0, 1, 0, 1.3);
@@ -33,31 +33,11 @@ body {
   padding: 0;
 }
 
-.text-section {
-  position: fixed;
-  bottom: 0;
-  margin-bottom: 4rem;
-  margin-left: 4rem;
-  margin-right: 4rem;
-  width: 50%;
-}
-.heading {
-  font-size: 2rem;
-  margin: 0;
-  margin-bottom: 1rem;
-}
-#highlight {
-  text-shadow: 0 0 2px var(--text-color);
-  filter: brightness(110%);
-}
-#fun-fact {
-  font-weight: 100;
-  font-size: 0.8rem;
-}
-.text {
-  overflow-wrap: break-word;
-  width: 100%;
-  font-size: 1rem;
+.screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
 }
 
 #light {
@@ -70,6 +50,8 @@ body {
 }
 
 .light-switch {
+  position: absolute;
+  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,8 +73,46 @@ body {
   height: 1.3rem;
   border-radius: 0.5rem;
   margin-top: -1rem;
+  transition: all var(--transition-time) var(--transition-timing);
 }
 .light-switch-dongle:hover {
   --active-cursor: grab;
   cursor: var(--active-cursor);
+  transform: scale(1.1);
+  filter: brightness(120%);
+}
+
+.text-section {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 4rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.heading {
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+#highlight {
+  text-shadow: 0 0 2px var(--text-color);
+  filter: brightness(110%);
+  transition: transform var(--transition-time) ease-in-out;
+  display: inline-block;
+}
+#highlight:hover {
+  transform: translateY(-0.2rem);
+}
+#fun-fact {
+  font-weight: 100;
+  font-size: 1rem;
+}
+.text {
+  overflow-wrap: break-word;
+  width: 100%;
+  font-size: 1.2rem;
 }

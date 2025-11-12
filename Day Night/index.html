@@ -9,21 +9,22 @@
     <link rel="stylesheet" href="/Day Night/styles.css" />
   </head>
   <body>
-    <div id="light"></div>
+    <div class="screen">
+      <div id="light"></div>
 
-    <div class="light-switch">
-      <div class="light-switch-string"></div>
-      <div class="light-switch-dongle"></div>
+      <div class="light-switch">
+        <div class="light-switch-string"></div>
+        <div class="light-switch-dongle"></div>
+      </div>
+
+      <div class="text-section">
+        <h1 class="heading">
+          It is <span id="highlight">just a light switch...</span>
+        </h1>
+        <span id="fun-fact">Fun Fact <br /> </span>
+        <span class="text">Pull to reveal something fun!</span>
+      </div>
     </div>
-
-    <div class="text-section">
-      <h1 class="heading">
-        It is <span id="highlight">just a light switch...</span>
-      </h1>
-      <span id="fun-fact">Fun Fact <br /> </span>
-      <span class="text">Pull to see what happens!</span>
-    </div>
-
     <audio
       src="/Day Night/Assets/light-switch-pull.mp3"
       id="light-switch-pull-sfx"
